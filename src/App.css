@@ -1,6 +1,12 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgb(136, 136, 196);
+  min-height: 3rem;
 }
