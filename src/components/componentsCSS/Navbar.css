@@ -71,6 +71,10 @@
   font-size: 0.8em;
 }
 
+.budget-label {
+  color: #ecf0f1;
+}
+
 @media (min-width: 769px) {
   .navigation {
     padding: 0.625em 1.25em;
