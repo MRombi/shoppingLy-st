@@ -5,7 +5,6 @@ import "@testing-library/jest-dom/extend-expect";
 
 describe("RemoveItem Component", () => {
   it("should call setList with the item removed from the list when clicked", () => {
-    // Mock item and setList function
     const mockItem = { id: 1, name: "Apple", price: 0.5 };
     const setListMock = vi.fn();
 
