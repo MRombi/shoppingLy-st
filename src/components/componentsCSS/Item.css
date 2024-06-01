@@ -1,0 +1,24 @@
+.item-container {
+  border: 1px solid #ccc;
+  border-radius: 0.8em;
+  padding: 0.8em;
+  width: 12em;
+  margin: 1em;
+  display: inline-block;
+}
+
+.item-name {
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+}
+
+.item-price {
+  margin-top: 0.5em;
+}
+
+.bold {
+  font-weight: bold;
+}
+.item-container.transparent {
+  opacity: 0.5;
+}

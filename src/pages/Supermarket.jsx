@@ -10,7 +10,7 @@ function Supermarket({ setList }) {
         {supermarket.map((item) => {
           return (
             <>
-              <Item key={item.item_id} item={item} />
+              <Item key={item.item_id} item={item} isCrossable={false} />
               <AddItem setList={setList} item={item} />
             </>
           );
