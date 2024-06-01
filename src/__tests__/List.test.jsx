@@ -13,22 +13,22 @@ describe("List Component", () => {
 
     const { getByText, getAllByRole } = render(<List list={list} />);
 
-    const headingElement = getByText("Supermarket");
-    const itemElements = getAllByRole("listitem");
+    const headingElement = getByText("Shopping List");
+    const itemElements = getAllByRole("item-list");
 
     expect(headingElement).toBeInTheDocument();
     expect(itemElements.length).toBe(list.length);
 
     list.forEach((item, index) => {
-      const itemNameElement = getByText(`Item: ${item.item_name}`);
-      const itemPriceElement = getByText(`Price: ${item.price}`);
+      const itemNameElement = getByText(`${item.item_name}`);
+      const itemPriceElement = getByText(`Price: £${item.price}`);
 
       expect(itemNameElement).toBeInTheDocument();
       expect(itemPriceElement).toBeInTheDocument();
 
       const itemElement = itemElements[index];
-      expect(itemElement).toHaveTextContent(`Item: ${item.item_name}`);
-      expect(itemElement).toHaveTextContent(`Price: ${item.price}`);
+      expect(itemElement).toHaveTextContent(`${item.item_name}`);
+      expect(itemElement).toHaveTextContent(`Price: £${item.price}`);
     });
   });
 });
