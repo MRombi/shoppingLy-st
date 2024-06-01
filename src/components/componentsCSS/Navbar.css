@@ -47,16 +47,30 @@
   padding: 0.3125em 0.625em;
   border-radius: 0.3125em;
   box-shadow: inset 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+}
+.high-price {
+  color: #f1eeec;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #e20b0b;
+  padding: 0.3125em 0.625em;
+  border-radius: 0.3125em;
+  box-shadow: inset 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
 }
 
-.total-price:hover {
-  background-color: #1abc9c;
-  color: #2c3e50;
-  cursor: pointer;
+.input-container {
+  flex-grow: 1;
+  margin-left: 0.75em;
 }
 
-/* Desktop styles */
+.input-container input {
+  width: 100%;
+  padding: 0.25em 0.1em;
+  border-radius: 0.3125em;
+  border: 1px solid #ccc;
+  font-size: 0.8em;
+}
+
 @media (min-width: 769px) {
   .navigation {
     padding: 0.625em 1.25em;
