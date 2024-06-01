@@ -9,8 +9,8 @@ describe("Item Component", () => {
 
     render(<Item item={item} />);
 
-    const itemNameElement = screen.getByText(/Item: Apple/i);
-    const itemPriceElement = screen.getByText(/Price: 0.5/i);
+    const itemNameElement = screen.getByText(/Apple/i);
+    const itemPriceElement = screen.getByText(/Price: £0.5/i);
 
     expect(itemNameElement).toBeInTheDocument();
     expect(itemPriceElement).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe("Item Component", () => {
 
     const itemElement = screen.getByRole("listitem");
 
-    expect(itemElement).toHaveClass("item");
+    expect(itemElement).toHaveClass("item-container");
   });
 
   it("should handle missing quantity gracefully", () => {
