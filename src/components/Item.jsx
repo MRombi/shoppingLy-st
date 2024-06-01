@@ -9,7 +9,7 @@ function Item({ item, isCrossable }) {
   };
 
   return (
-    <li
+    <section
       className={`item-container ${
         isTransparent && isCrossable ? "transparent" : ""
       }`}
@@ -18,7 +18,7 @@ function Item({ item, isCrossable }) {
     >
       <p className="item-name">{item.item_name}</p>
       <p className="item-price">Price: £{item.price}</p>
-    </li>
+    </section>
   );
 }
 

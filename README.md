@@ -1,8 +1,19 @@
-# React + Vite
+# ShoppingLy-st
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+App designed to help our lovely customers in their shopping journeys. They can choose from our top quality products and add, remove and reorder them within their own list!
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Prerequisites:
+
+- Ensure you have Node.js installed on your machine.
+- An internet connection to download dependencies.
+
+Clone the repository from:
+`https://github.com/MRombi/shoppingLy-st.git`
+
+Run `npm intall` to install dependencies.
+
+Run `npm run dev` to start the application.
+
+Navigate to http://localhost:5173/ and enjoy!
