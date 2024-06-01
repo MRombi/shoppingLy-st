@@ -9,7 +9,7 @@ function List({ list, setList }) {
         {list.map((item) => {
           return (
             <>
-              <Item key={item.item_id} item={item} />
+              <Item key={item.item_id} item={item} isCrossable={true} />
               <RemoveItem setList={setList} item={item} />
             </>
           );
