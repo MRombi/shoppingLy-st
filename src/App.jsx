@@ -12,7 +12,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Supermarket setList={setList} />} />
-        <Route path="/shopping-list" element={<List list={list} />} />
+        <Route
+          path="/shopping-list"
+          element={<List list={list} setList={setList} />}
+        />
       </Routes>
     </main>
   );
