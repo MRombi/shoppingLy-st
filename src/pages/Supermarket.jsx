@@ -9,10 +9,10 @@ function Supermarket({ setList }) {
       <ul className="item-supermarket">
         {supermarket.map((item) => {
           return (
-            <>
+            <li key={item.item_id}>
               <Item item={item} isCrossable={false} />
               <AddItem setList={setList} item={item} />
-            </>
+            </li>
           );
         })}
       </ul>
