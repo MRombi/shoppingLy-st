@@ -17,7 +17,8 @@ function Item({ item, isCrossable }) {
       onClick={handleItemClick}
     >
       <p className="item-name">{item.item_name}</p>
-      <p className="item-price">Price: £{item.price}</p>
+      <p className="item-price">Price: £{item.price.toFixed(2)}</p>
+      <p className="item-quantity">Quantity: {item.quantity}</p>
     </section>
   );
 }

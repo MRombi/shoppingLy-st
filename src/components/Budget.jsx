@@ -12,7 +12,7 @@ function Budget() {
   return (
     <>
       <p className={total <= budget.final ? "total-price" : "high-price"}>
-        Total Price: £{total}
+        Total Price: £{total.toFixed(2)}
       </p>
       <div className="input-container">
         {budget.final ? (
