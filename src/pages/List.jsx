@@ -6,16 +6,19 @@ function List({ list, setList }) {
   const [draggedItem, setDraggedItem] = useState(null);
   const [draggedOverItem, setDraggedOverItem] = useState(null);
 
-  const handleDragStart = (item) => {
+  const handleDragStart = (event, item) => {
     setDraggedItem(item);
+    event.dataTransfer.effectAllowed = "move";
   };
 
   const handleDragOver = (event, item) => {
     event.preventDefault();
     setDraggedOverItem(item);
+    event.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (dropTargetItem) => {
+  const handleDrop = (event, dropTargetItem) => {
+    event.preventDefault();
     const draggedItemIndex = list.findIndex(
       (listItem) => listItem === draggedItem
     );
@@ -35,18 +38,24 @@ function List({ list, setList }) {
     setDraggedOverItem(null);
   };
 
+  const handleDragEnd = () => {
+    setDraggedItem(null);
+    setDraggedOverItem(null);
+  };
+
   return (
     <div className="list-container">
       <h1>Shopping List</h1>
-      <ul className="item-list">
+      <ul className="listitem">
         {list.map((item) => (
           <li
-            role="item-list"
+            role="listitem"
             key={item.item_id}
             draggable
             onDragStart={(event) => handleDragStart(event, item)}
             onDragOver={(event) => handleDragOver(event, item)}
             onDrop={(event) => handleDrop(event, item)}
+            onDragEnd={handleDragEnd}
             className={item === draggedOverItem ? "dragged-over" : ""}
           >
             <Item item={item} isCrossable={true} />
