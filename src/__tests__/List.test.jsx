@@ -1,34 +1,49 @@
-import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
 import List from "../pages/List";
 import "@testing-library/jest-dom/extend-expect";
 
-describe("List Component", () => {
-  it("should render the correct heading and list of items", () => {
-    const list = [
-      { item_id: 1, item_name: "Apple", price: 0.5 },
-      { item_id: 2, item_name: "Banana", price: 0.3 },
-      { item_id: 3, item_name: "Milk", price: 1.5 },
-    ];
+vi.mock("../components/Item", () => ({
+  default: ({ item }) => <div>{item.item_name}</div>,
+}));
+vi.mock("../components/RemoveItem", () => ({
+  default: ({ item, setList }) => (
+    <button
+      onClick={() =>
+        setList((prev) => prev.filter((i) => i.item_id !== item.item_id))
+      }
+    >
+      Remove {item.item_name}
+    </button>
+  ),
+}));
 
-    const { getByText, getAllByRole } = render(<List list={list} />);
+describe("List component", () => {
+  const initialList = [
+    { item_id: 1, item_name: "Item 1", price: 10 },
+    { item_id: 2, item_name: "Item 2", price: 20 },
+  ];
 
-    const headingElement = getByText("Shopping List");
-    const itemElements = getAllByRole("item-list");
+  it("renders the heading", () => {
+    render(<List list={initialList} setList={vi.fn()} />);
+    expect(screen.getByText("Shopping List")).toBeInTheDocument();
+  });
 
-    expect(headingElement).toBeInTheDocument();
-    expect(itemElements.length).toBe(list.length);
+  it("renders the list items", () => {
+    render(<List list={initialList} setList={vi.fn()} />);
+    expect(screen.getByText("Item 1")).toBeInTheDocument();
+    expect(screen.getByText("Item 2")).toBeInTheDocument();
+  });
 
-    list.forEach((item, index) => {
-      const itemNameElement = getByText(`${item.item_name}`);
-      const itemPriceElement = getByText(`Price: £${item.price}`);
+  it("renders the RemoveItem buttons", () => {
+    render(<List list={initialList} setList={vi.fn()} />);
+    expect(screen.getByText("Remove Item 1")).toBeInTheDocument();
+    expect(screen.getByText("Remove Item 2")).toBeInTheDocument();
+  });
 
-      expect(itemNameElement).toBeInTheDocument();
-      expect(itemPriceElement).toBeInTheDocument();
-
-      const itemElement = itemElements[index];
-      expect(itemElement).toHaveTextContent(`${item.item_name}`);
-      expect(itemElement).toHaveTextContent(`Price: £${item.price}`);
-    });
+  it("renders the correct number of list items", () => {
+    render(<List list={initialList} setList={vi.fn()} />);
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems.length).toBe(2);
   });
 });
