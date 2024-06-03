@@ -44,7 +44,7 @@ function List({ list, setList }) {
   };
 
   return (
-    <div className="list-container">
+    <main className="list-container">
       <h1>Shopping List</h1>
       <ul className="listitem">
         {list.map((item) => (
@@ -63,7 +63,7 @@ function List({ list, setList }) {
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   );
 }
 

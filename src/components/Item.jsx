@@ -2,16 +2,16 @@ import { useState } from "react";
 import "./componentsCSS/Item.css";
 
 function Item({ item, isListItem }) {
-  const [isTransparent, setIsTransparent] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   const handleItemClick = () => {
-    setIsTransparent(!isTransparent);
+    setIsSelected(!isSelected);
   };
 
   return (
     <section
       className={`item-container ${
-        isTransparent && isListItem ? "transparent" : ""
+        isSelected && isListItem ? "transparent" : ""
       }`}
       role="listitem"
       onClick={handleItemClick}
@@ -20,9 +20,7 @@ function Item({ item, isListItem }) {
       <p className="item-price">Price: £{item.price.toFixed(2)}</p>
       {isListItem ? (
         <p className="item-quantity">Quantity: {item.quantity}</p>
-      ) : (
-        ""
-      )}
+      ) : null}
     </section>
   );
 }

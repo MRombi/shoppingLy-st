@@ -9,16 +9,12 @@
 
 .item-name {
   font-weight: bold;
-  font-family: "Arial", sans-serif;
 }
 
 .item-price {
   margin-top: 0.5em;
 }
 
-.bold {
-  font-weight: bold;
-}
 .item-container.transparent {
   opacity: 0.5;
 }

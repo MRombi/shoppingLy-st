@@ -4,7 +4,7 @@ import Item from "../components/Item";
 
 function Supermarket({ setList }) {
   return (
-    <>
+    <main>
       <h1>Supermarket</h1>
       <ul className="item-supermarket">
         {supermarket.map((item) => {
@@ -16,7 +16,7 @@ function Supermarket({ setList }) {
           );
         })}
       </ul>
-    </>
+    </main>
   );
 }
 

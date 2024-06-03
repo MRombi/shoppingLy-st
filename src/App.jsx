@@ -11,16 +11,14 @@ function App() {
   const [total, setTotal] = useState(0);
   return (
     <Context.Provider value={[total, setTotal]}>
-      <main>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Supermarket setList={setList} />} />
-          <Route
-            path="/shopping-list"
-            element={<List list={list} setList={setList} />}
-          />
-        </Routes>
-      </main>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Supermarket setList={setList} />} />
+        <Route
+          path="/shopping-list"
+          element={<List list={list} setList={setList} />}
+        />
+      </Routes>
     </Context.Provider>
   );
 }
