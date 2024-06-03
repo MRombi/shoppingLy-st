@@ -1,61 +1,92 @@
-import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
-import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, beforeEach } from "vitest";
+import { Context } from "../App";
 import Navbar from "../components/Navbar";
 import "@testing-library/jest-dom/extend-expect";
 
-describe("Navbar Component", () => {
-  it("should render navigation links", () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <Navbar />
-      </MemoryRouter>
-    );
+const MockContextProvider = ({ children, contextValue }) => (
+  <Context.Provider value={contextValue}>{children}</Context.Provider>
+);
 
-    const supermarketLink = getByText("Supermarket");
-    const shoppingListLink = getByText("Shopping List");
+describe("Navbar component", () => {
+  let contextValue;
 
-    expect(supermarketLink).toBeInTheDocument();
-    expect(shoppingListLink).toBeInTheDocument();
+  beforeEach(() => {
+    contextValue = [10, () => {}];
   });
 
-  it("should navigate to the correct path when supermarket link is clicked", () => {
-    const { getByText } = render(
-      <Router>
-        <Navbar />
-      </Router>
+  it("renders the navbar", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
     );
-
-    const supermarketLink = getByText("Supermarket");
-    supermarketLink.click();
-
-    expect(window.location.pathname).toBe("/");
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
   });
 
-  it("should navigate to the correct path when shopping list link is clicked", () => {
-    const { getByText } = render(
-      <Router>
-        <Navbar />
-      </Router>
+  it("renders the Supermarket link", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
     );
-
-    const shoppingListLink = getByText("Shopping List");
-    shoppingListLink.click();
-
-    expect(window.location.pathname).toBe("/shopping-list");
+    const link = screen.getByText("Supermarket");
+    expect(link).toBeInTheDocument();
+    expect(link.closest("a")).toHaveAttribute("href", "/");
   });
 
-  it("should have the correct class names", () => {
-    const { getByRole } = render(
-      <Router>
-        <Navbar />
-      </Router>
+  it("renders the Shopping List link", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
     );
+    const link = screen.getByText("Shopping List");
+    expect(link).toBeInTheDocument();
+    expect(link.closest("a")).toHaveAttribute("href", "/shopping-list");
+  });
 
-    const navElement = getByRole("navigation");
-    const ulElement = getByRole("list");
+  it("renders the Budget component", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
+    );
+    expect(screen.getByText(/Total Price:/)).toBeInTheDocument();
+  });
 
-    expect(navElement).toHaveClass("navigation");
-    expect(ulElement).toHaveClass("navigation-links");
+  it("displays the budget input initially", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
+    );
+    const budgetInput = screen.getByPlaceholderText("Set Budget");
+    expect(budgetInput).toBeInTheDocument();
+  });
+
+  it("updates the budget on form submit", () => {
+    render(
+      <BrowserRouter>
+        <MockContextProvider contextValue={contextValue}>
+          <Navbar />
+        </MockContextProvider>
+      </BrowserRouter>
+    );
+    const budgetInput = screen.getByPlaceholderText("Set Budget");
+    fireEvent.change(budgetInput, { target: { value: "20" } });
+    fireEvent.submit(budgetInput);
+    expect(screen.getByText("Budget: £20")).toBeInTheDocument();
   });
 });
