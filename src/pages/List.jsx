@@ -58,7 +58,7 @@ function List({ list, setList }) {
             onDragEnd={handleDragEnd}
             className={item === draggedOverItem ? "dragged-over" : ""}
           >
-            <Item item={item} isCrossable={true} />
+            <Item item={item} isListItem={true} />
             <RemoveItem setList={setList} item={item} />
           </li>
         ))}
