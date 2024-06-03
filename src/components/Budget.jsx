@@ -24,8 +24,10 @@ function Budget() {
             </label>
             <input
               id="budget"
+              type="number"
               onChange={(e) => setBudget({ initial: e.target.value, final: 0 })}
               placeholder={budget.final ? "" : "Set Budget"}
+              value={budget.initial}
             />
           </form>
         )}
