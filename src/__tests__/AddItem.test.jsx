@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { useContext } from "react";
-import { describe, it, vi, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import AddItem from "../components/AddItem";
 import "@testing-library/jest-dom/extend-expect";
+import { useContext } from "react";
 
 vi.mock("react", async () => {
   const actual = await vi.importActual("react");
@@ -13,45 +13,50 @@ vi.mock("react", async () => {
 });
 
 describe("AddItem component", () => {
+  const setListMock = vi.fn();
+  const setTotalMock = vi.fn();
+  const item = { item_id: 1, item_name: "Item 1", price: 10, quantity: 1 };
+  const contextValue = [null, setTotalMock];
+
+  beforeEach(() => {
+    useContext.mockReturnValue(contextValue);
+  });
+
   it("renders the Add button", () => {
-    useContext.mockReturnValue([null, vi.fn()]);
-    render(
-      <AddItem setList={vi.fn()} item={{ item_name: "Apple", price: 1 }} />
-    );
+    render(<AddItem setList={setListMock} item={item} />);
     expect(screen.getByText("Add")).toBeInTheDocument();
   });
 
-  it("calls setList and setTotal when button is clicked", () => {
-    const setListMock = vi.fn();
-    const setTotalMock = vi.fn();
-    useContext.mockReturnValue([null, setTotalMock]);
-
-    render(
-      <AddItem
-        setList={setListMock}
-        item={{ item_id: 1, item_name: "Apple", price: 1 }}
-      />
-    );
-
-    fireEvent.click(screen.getByText("Add"));
+  it("calls setList and setTotal correctly when adding an item", () => {
+    render(<AddItem setList={setListMock} item={item} />);
+    const addButton = screen.getByText("Add");
+    fireEvent.click(addButton);
 
     expect(setListMock).toHaveBeenCalledWith(expect.any(Function));
     expect(setTotalMock).toHaveBeenCalledWith(expect.any(Function));
+  });
 
-    const currentItems = [];
-    const item = {
-      item_id: 1,
-      item_name: "Apple",
-      price: 1,
-      quantity: 1,
-    };
-    const addItemCallback = setListMock.mock.calls[0][0];
-    const newItems = addItemCallback(currentItems);
-    expect(newItems).toEqual([item]);
+  it("adds item to list when Add button is clicked", () => {
+    const initialList = [];
 
-    const currentTotal = 0;
-    const addTotalCallback = setTotalMock.mock.calls[0][0];
-    const newTotal = addTotalCallback(currentTotal);
-    expect(newTotal).toBe(1);
+    setListMock.mockImplementation((updateFn) => {
+      const newList = updateFn(initialList);
+      expect(newList).toEqual([item]);
+    });
+
+    render(<AddItem setList={setListMock} item={item} />);
+    const addButton = screen.getByText("Add");
+    fireEvent.click(addButton);
+  });
+
+  it("updates total correctly when adding an item", () => {
+    setTotalMock.mockImplementation((updateFn) => {
+      const newTotal = updateFn(0);
+      expect(newTotal).toBe(10);
+    });
+
+    render(<AddItem setList={setListMock} item={item} />);
+    const addButton = screen.getByText("Add");
+    fireEvent.click(addButton);
   });
 });
