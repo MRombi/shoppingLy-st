@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Supermarket from "./pages/Supermarket";
 import List from "./pages/List";
-export const Context = React.createContext();
+export const Context = React.createContext(null);
 
 function App() {
   const [list, setList] = useState([]);
