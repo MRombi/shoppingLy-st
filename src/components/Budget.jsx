@@ -27,7 +27,8 @@ function Budget() {
               type="number"
               onChange={(e) => setBudget({ initial: e.target.value, final: 0 })}
               placeholder={budget.final ? "" : "Set Budget"}
-              value={budget.initial}
+              value={null}
+              min="1"
             />
           </form>
         )}
