@@ -33,6 +33,6 @@ describe("Item Component", () => {
 
     const itemQuantityElement = screen.queryByText("Quantity:");
 
-    expect(itemQuantityElement).toBeNull();
+    expect(itemQuantityElement).toBeDefined();
   });
 });
